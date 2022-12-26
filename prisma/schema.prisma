@@ -10,10 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Products {
+model Product {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  name      String 
   price     Float
-  stock  Int
+  stock     Int
   image     String
 }

@@ -8,7 +8,7 @@ const dbConnection = async () => {
         await prisma.$connect();
         console.log("Database connected");
 
-        /* await prisma.Products.create({
+       /*  await prisma.product.create({
             data: {
                 name: "Product 1",
                 price: 100,
@@ -16,7 +16,7 @@ const dbConnection = async () => {
                 image: 'por ahora string',
             },
         })
-        await prisma.Products.create({
+        await prisma.product.create({
             data: {
                 name: "Product 2",
                 price: 200,
@@ -26,7 +26,7 @@ const dbConnection = async () => {
         })
 
         console.log("Products created");
-        const products = await prisma.Products.findMany();
+        const products = await prisma.product.findMany();
         console.log(products); */
 
     } catch (error) {

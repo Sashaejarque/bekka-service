@@ -10,10 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Cuando cambie el schema debo ejecutar el comando npx prisma generate
 model Product {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String 
   price     Float
   stock     Int
   image     String
+  state    Boolean @default(true)
 }

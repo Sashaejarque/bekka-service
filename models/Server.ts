@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import dbConnection from '../database/config';
 import productsRoutes from '../routes/products';
 
 class Server {
@@ -11,7 +12,12 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || 3000;
+        this.connectDb();
         this.routes();
+    }
+
+    async connectDb() {
+        await dbConnection();
     }
 
     routes() {

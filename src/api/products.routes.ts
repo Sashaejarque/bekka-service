@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import { deleteProduct, getProduct, getProducts, postProduct, putProduct } from '../products/products.controller';
+import { ProductController } from '../products/application/product.controller';
+import { MongoDBProductAdapter } from '../products/infrastructure/product.adapter';
 
 const router = Router();
+const productController = new ProductController(new MongoDBProductAdapter());
 
-router.get('/', getProducts);
-router.get('/:id', getProduct);
-router.post('/', postProduct);
-router.put('/:id', putProduct);
-router.delete('/:id', deleteProduct);
+router.get('/', productController.getProduct);
+router.get('/:id', productController.getProduct);
+router.post('/', productController.postProduct);
+router.put('/:id', productController.putProduct);
+router.delete('/:id', productController.deleteProduct);
 
 export default router;

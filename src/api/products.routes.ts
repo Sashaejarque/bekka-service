@@ -5,10 +5,10 @@ import { MongoDBProductAdapter } from '../products/infrastructure/product.adapte
 const router = Router();
 const productController = new ProductController(new MongoDBProductAdapter());
 
-router.get('/', productController.getProduct);
-router.get('/:id', productController.getProduct);
-router.post('/', productController.postProduct);
-router.put('/:id', productController.putProduct);
-router.delete('/:id', productController.deleteProduct);
+router.get('/', productController.getAll);
+router.get('/:id', productController.getById);
+router.post('/', productController.create);
+router.put('/:id', productController.update);
+router.delete('/:id', productController.delete);
 
 export default router;

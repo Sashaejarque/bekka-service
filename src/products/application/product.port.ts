@@ -1,9 +1,14 @@
 import { Product } from '../domain/Product';
 
 export interface ProductPort {
-    getProducts(): Promise<Product[]>;
-    getProduct(id: string): Promise<Product | null>;
-    postProduct(product: Product): Promise<void>;
-    putProduct(id: string, product: Product): Promise<void>;
-    deleteProduct(id: string): Promise<void>;
+
+  getAll(): Promise<Product[]>;
+
+  getById(id: string): Promise<Product | null>;
+
+  create(product: Product): Promise<void>;
+
+  update(id: string, product: Product): Promise<void>;
+
+  delete(id: string): Promise<void>;
 }

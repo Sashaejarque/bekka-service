@@ -6,26 +6,37 @@ export const getProducts = async (req: Request, res: Response) => {
     const products = await prisma.product.findMany();
 
     res.json({
-        msg: 'All products',
         data: products,
     })
 };
 
 export const getProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const product = await prisma.product.findUnique({
+        where: {
+            id
+        }
+    });
 
     res.json({
-        msg: 'getProduct',
-        id
+        data: product
     })
 };
 
 export const postProduct = async (req: Request, res: Response) => {
-    const { body } = req;
+    const body = req.body;
+    const newProduct = await prisma.product.create({
+        data: {
+            name: body.name,
+            price: body.price,
+            stock: body.stock,
+            image: body.image,
+        }
+    });
 
     res.json({
-        msg: 'postProduct',
-        body
+        msg: 'Created product correctly',
+        newProduct
     })
 };
 
@@ -33,18 +44,28 @@ export const putProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { body } = req;
 
+    const product = await prisma.product.update({
+        where: {id},
+        data: {
+            name: body.name,
+            price: body.price,
+            stock: body.stock,
+            image: body.image,
+        },
+    });
+
     res.json({
-        msg: 'putProduct',
-        id,
-        body
+        msg: 'Product updated correctly',
+        product
     })
 }
 
 export const deleteProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const product = await prisma.product.delete({where: {id}});
 
     res.json({
-        msg: 'deleteProduct',
-        id
+        msg: 'Product deleted correctly',
+        product
     })
 }

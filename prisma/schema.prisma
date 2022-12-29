@@ -16,6 +16,6 @@ model Product {
   name      String 
   price     Float
   stock     Int
-  image     String
+  image     String @default("https://api.placid.app/u/qsraj?title[text]=Soy%unaPesa%21")
   state    Boolean @default(true)
 }

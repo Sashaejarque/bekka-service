@@ -19,3 +19,12 @@ model Product {
   image     String @default("https://api.placid.app/u/qsraj?title[text]=Soy%unaPesa%21")
   state    Boolean @default(true)
 }
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String 
+  email     String @unique
+  password  String
+  state    Boolean @default(true)
+  createdAt DateTime @default(now())
+}

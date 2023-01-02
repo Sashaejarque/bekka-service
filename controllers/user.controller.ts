@@ -30,9 +30,11 @@ export const createUser = async (req: Request, res: Response) => {
             password: hashedPassword
         }
     });
+    const { password: _, state, ...rest} = user;
+
     res.json({
         msg: 'User created correctly',
-        user
+        rest,
     })
 }
 

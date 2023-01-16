@@ -4,14 +4,17 @@ import productsRoutes from '../routes/products';
 import loginRoutes from '../routes/auth';
 import cors from 'cors';
 import usersRoutes from '../routes/user';
+import fileUpload from 'express-fileupload';
+import uploadsRoutes from '../routes/uploads';
 
 class Server {
     private app: Application;
     private port: number | string;
     private apiPaths = {
-        products: '/api/products',
-        login: '/api/auth',
-        users: '/api/users'
+        PRODUCTS: '/api/products',
+        LOGIN: '/api/auth',
+        USERS: '/api/users',
+        UPLOADS: '/api/uploads'
     };
 
     constructor() {
@@ -36,13 +39,19 @@ class Server {
         // Directorio publico
         this.app.use(express.static('public'));
 
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
+
 
     }
 
     routes() {
-        this.app.use(this.apiPaths.products, productsRoutes);
-        this.app.use(this.apiPaths.login, loginRoutes);
-        this.app.use(this.apiPaths.users, usersRoutes);
+        this.app.use(this.apiPaths.PRODUCTS, productsRoutes);
+        this.app.use(this.apiPaths.LOGIN, loginRoutes);
+        this.app.use(this.apiPaths.USERS, usersRoutes);
+        this.app.use(this.apiPaths.UPLOADS, uploadsRoutes)
     }
 
     listen() {

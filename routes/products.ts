@@ -19,7 +19,9 @@ router.post('/', [
     validateJWT,
     check('name', 'The name is required').not().isEmpty(),
     check('price', 'The price is required').not().isEmpty(),
+    check('price', 'The price must be a number').isNumeric(),
     check('stock', 'The stock is required').not().isEmpty(),
+    check('stock', 'The stock must be a number').isNumeric(),
     errorValidation,
 ], postProduct);
 

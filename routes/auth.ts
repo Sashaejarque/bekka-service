@@ -6,9 +6,9 @@ import { errorValidation } from '../middlewares/fieldValidation';
 const loginRoutes = Router();
 
 loginRoutes.post('/login', [
-    /* check('email', 'The email is required').isEmail(),
+    check('email', 'The email is required').isEmail(),
     check('password', 'The password is required').not().isEmpty(),
-    errorValidation, */
+    errorValidation,
 ], handleLogin)
 
 export default loginRoutes;

@@ -13,10 +13,11 @@ export const postImage = async (req: Request, res: Response) => {
     // https://github.com/richardgirges/express-fileupload/issues/156 UploadedFile
     const { tempFilePath } = req.files.image as UploadedFile;
     const image = await cloudinary.v2.uploader.upload(tempFilePath);
-    const { secure_url } = image;
+    const { secure_url, public_id } = image;
 
     res.json({
       secure_url,
+      public_id,
     });
   } catch (err) {
     console.log(err);

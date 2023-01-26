@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "../database/config";
+import cloudinary from "cloudinary";
 
 export const getProducts = async (req: Request, res: Response) => {
     const products = await prisma.product.findMany();
@@ -31,6 +32,7 @@ export const postProduct = async (req: Request, res: Response) => {
             price: body.price,
             stock: body.stock,
             image: body.image,
+            public_id: body.public_id,
         }
     });
 
@@ -51,6 +53,7 @@ export const putProduct = async (req: Request, res: Response) => {
             price: body.price,
             stock: body.stock,
             image: body.image,
+            public_id: body.public_id,
         },
     });
 
@@ -62,6 +65,11 @@ export const putProduct = async (req: Request, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const productToDelete = await prisma.product.findUnique({ where: {id} });
+    if(!productToDelete) return res.status(404).json({msg: 'Product not found'});
+
+    const { public_id } = productToDelete;
+    await cloudinary.v2.uploader.destroy(public_id);
     const product = await prisma.product.delete({where: {id}});
 
     res.json({

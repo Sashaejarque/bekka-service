@@ -6,12 +6,11 @@ import { createJWT } from "../helpers/createJWT";
 
 export const handleLogin = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    let userIfo = null;
 
     try {
         const user = await prisma.user.findUnique({
             where: { email }
-        });
+        })
         console.log(user)
         if (!user) {
             return res.status(400).json({
@@ -32,19 +31,11 @@ export const handleLogin = async (req: Request, res: Response) => {
             })
         }
         // Creando jwt
-        const token = await createJWT(user.id);
-
-        if(user) {
-            userIfo = {
-                email: user.email,
-                name: user.name,
-            }
-        }
+        const token = await createJWT(user.id)
 
         res.json({
             msg: 'Login successfully',
-            jwt: token,
-            user: userIfo
+            jwt: token
         });
 
     } catch (error){
